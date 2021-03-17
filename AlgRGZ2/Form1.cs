@@ -23,7 +23,7 @@ namespace AlgRGZ2
 
 		//суммарное время эксперимента
 		double ExpTime = 0;
-
+		double Coeff = 0;
 		//массив для сортировки
 		List<int> array = new List<int>();
 
@@ -66,7 +66,7 @@ namespace AlgRGZ2
 			for (int i = 0; i < Result.Count; i++)
 			{
 				graph.Series[0].Points.AddXY(Result[i].Item1, Result[i].Item2);
-				graph.Series[1].Points.AddXY(Result[i].Item1,  (Convert.ToDouble(Result[i].Item1)) * Math.Log(Convert.ToDouble(Result[i].Item1), 2));
+				graph.Series[1].Points.AddXY(Result[i].Item1, Coeff * (Convert.ToDouble(Result[i].Item1)) * Math.Log(Convert.ToDouble(Result[i].Item1), 2));
 			}
 
 			graph.ChartAreas[0].AxisX.Title = "Размер массива";
@@ -88,6 +88,15 @@ namespace AlgRGZ2
 				MessageBox.Show("Введено недопустимое значение!", "Ошибка");
 				CountTB.Clear();
 				return false;
+			}
+			if(CoeffTB.Text != "")
+			{ 
+				if (!double.TryParse(CoeffTB.Text, out Coeff))
+				{
+					MessageBox.Show("Введено недопустимое значение!", "Ошибка");
+					CoeffTB.Clear();
+					return false;
+				}
 			}
 			return true;
 		}
