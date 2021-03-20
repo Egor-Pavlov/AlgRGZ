@@ -8,7 +8,7 @@ namespace AlgRGZ2
 {
     class HeapSort
     {
-		public List<int> HSort(int size, List<int> array)
+		public static List<int> HSort(int size, List<int> array)
 		{
 			int t;
 			while (size > 0)
@@ -16,7 +16,7 @@ namespace AlgRGZ2
 				//максимальный эл-т перемещается на 0-е место(сортировка дерева)
 				for (int i = (size - 1) / 2; i >= 0; i--)
 				{
-					if (2 * i + 1 < size)
+					if (2 * i + 1 < size)//рассматриваем дочерние узлы i-го элемента. Если один из них больше, то он обменивается позицией с родительским
 					{
 						if (array[i] < array[2 * i + 1])
 						{
@@ -42,11 +42,9 @@ namespace AlgRGZ2
 				array[0] = array[size - 1];
 				array[size - 1] = t;
 
-				size--;
+				size--;//уменьшаем размер сортируемой кучи
 			}
 			return array;
 		}
-
-
 	}
 }

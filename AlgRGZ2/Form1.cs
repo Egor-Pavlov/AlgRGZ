@@ -51,14 +51,14 @@ namespace AlgRGZ2
 		}
 		private void Draw()
 		{
-			List<double> c = new List<double>();
-			double C = 0;
-			for (int i = 0; i < Result.Count; i++)
-            {
-				c.Add(Result[i].Item2 / (Result[i].Item1 * Math.Log(Convert.ToDouble(Result[i].Item1), 2)));
-				C += c[i];
-			}
-			C = C / c.Count; 
+			//List<double> c = new List<double>();
+			//double C = 0;
+			//for (int i = 0; i < Result.Count; i++)
+   //         {
+			//	c.Add(Result[i].Item2 / (Result[i].Item1 * Math.Log(Convert.ToDouble(Result[i].Item1), 2)));
+			//	C += c[i];
+			//}
+			//C = C / c.Count; 
 			
 			graph.Series[0].Points.Clear();
 			graph.Series[1].Points.Clear();
@@ -98,41 +98,45 @@ namespace AlgRGZ2
 					return false;
 				}
 			}
+			if(CoeffTB.Text == "")
+            {
+				Coeff = 0;
+			}
 			return true;
 		}
 		private void Start_Click(object sender, EventArgs e)
 		{
-			if(!CheckInput())
+            if (!CheckInput())//проверка входных данных
             {
-				return;
+                return;
             }
-			Random random = new Random();
-			Result.Clear();
+            Random random = new Random();
+            Result.Clear();//массив пар размер-время сортировки
 
-			for (uint i = 1; i <= ExpCount; i++)
-			{
-				size = i * step;
+            for (uint i = 1; i <= ExpCount; i++)
+            {
+                size = i * step;//step - шаг, с которым будет происходить увеличение размера массива
 
-				array.Clear();
+                array.Clear();
 
-				for (uint j = 0; j < size; j++)
-				{
-					array.Add(random.Next());//генерация массива заданной размерности, заполненного случайными числами
-				}
+                for (uint j = 0; j < size; j++)
+                {
+                    array.Add(random.Next());//генерация массива заданной размерности, заполненного случайными числами
+                }
 
-				Stopwatch stopWatch = new Stopwatch(); // секундомер
-				stopWatch.Start(); // запустить секундомер
+                Stopwatch stopWatch = new Stopwatch(); // секундомер
+                stopWatch.Start(); // запустить секундомер
 
-				array = HS.HSort(array.Count(), array);//функция, осуществляющая пирамидальную сортировку
+                array = HeapSort.HSort(array.Count(), array);//функция, осуществляющая пирамидальную сортировку
 
-				stopWatch.Stop(); // остановить секундомер
-				double elapseTime = stopWatch.Elapsed.TotalSeconds;//время сортировки
-				ExpTime += elapseTime;
-				Result.Add((size, elapseTime));//запись размера массива и времени сортировки в контейнер
-			}
-			label3.Text = "Суммарное время сортировок:\n" + ExpTime.ToString();
-			Draw();//отрисовка графика
-			//Save();//сохранение точек
-		}
+                stopWatch.Stop(); // остановить секундомер
+                double elapseTime = stopWatch.Elapsed.TotalSeconds;//время сортировки
+                ExpTime += elapseTime;//вычисление времени эксперимента
+                Result.Add((size, elapseTime));//запись размера массива и времени сортировки в контейнер
+            }
+            label3.Text = "Суммарное время сортировок:\n" + ExpTime.ToString();
+            Draw();//отрисовка графика
+            Save();//сохранение результатов эксперимента
+        }
 	}
 }
