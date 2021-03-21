@@ -106,7 +106,8 @@ namespace AlgRGZ2
 		}
 		private void Start_Click(object sender, EventArgs e)
 		{
-            if (!CheckInput())//проверка входных данных
+			ExpTime = 0;
+			if (!CheckInput())//проверка входных данных
             {
                 return;
             }
@@ -135,6 +136,7 @@ namespace AlgRGZ2
                 Result.Add((size, elapseTime));//запись размера массива и времени сортировки в контейнер
             }
             label3.Text = "Суммарное время сортировок:\n" + ExpTime.ToString();
+			
             Draw();//отрисовка графика
             Save();//сохранение результатов эксперимента
         }
