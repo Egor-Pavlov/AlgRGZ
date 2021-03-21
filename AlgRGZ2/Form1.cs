@@ -14,8 +14,6 @@ namespace AlgRGZ2
 {
 	public partial class Form1 : Form
 	{
-		HeapSort HS = new HeapSort();
-
 		public List<(uint, double)> Result = new List<(uint, double)>();//пары размер,время сортировки
 
 		//количество замеров времени, размер массива на этапе эксперимента
